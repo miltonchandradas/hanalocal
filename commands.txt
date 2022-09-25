@@ -1,0 +1,24 @@
+SETUP:
+----------------------------------------------------------------------------------------
+
+cf cs hana hdi-shared hanalocal-db
+cds add hana
+cds add cf-manifest
+
+cds build --production
+cf push
+
+
+Bind hanalocal-db to locally run application
+cds watch
+
+
+CLEANUP:
+----------------------------------------------------------------------------------------
+
+cf d hanalocal-srv -r -f
+cf d hanalocal-db-deployer -r -f
+cf dsk hanalocal-db key -f
+You will have to delete one more key...
+cf ds hanalocal-db -f
+
